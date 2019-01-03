@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Graph</title>
+		<meta name="author" content="Luis Castro Martín">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" href="favicon.ico">
+		<link rel="prefetch" href="lite.render.js">
+		<script defer src="viz.js"></script>
+		<script defer src="graph.js"></script>
+		<style>
+			@font-face {
+				font-family: Helvetica;
+				src: url(font.otf);
+			}
+		</style>
+	</head>
+
+	<body>
+		<h3>Graph</h3>
+		<textarea id="inputElement" oninput="updateGraph()" style="width: 100%" rows="4"></textarea>
+		<br><br>
+		<section id="graphSection"></section>
+	</body>
+</html>
