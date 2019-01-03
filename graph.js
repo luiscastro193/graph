@@ -46,3 +46,6 @@ function updateGraph() {
 		console.error(error);
 	});
 }
+
+if (inputElement.value)
+	updateGraph();
