@@ -37,10 +37,10 @@ function elementPromise(input) {
 }
 
 function updateGraph() {
-	elementPromise(inputElement.value).then(element => {
+	elementPromise(inputElement.value).then(function(element) {
 		graphSection.innerHTML = '';
 		graphSection.appendChild(element);
-	}).catch(error => {
+	}).catch(function(error) {
 		viz = new Viz({ workerURL });
 		console.error(error);
 	});
