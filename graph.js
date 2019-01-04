@@ -6,19 +6,17 @@ let graphSection = document.getElementById('graphSection');
 
 function gvString(links) {
 	return `digraph {
+		graph [rankdir = "LR"];
+		graph [nodesep = 0.5];
+		node [fontname = "Helvetica"];
+		node [fontsize = 11];
+		node [shape = box];
+		node [width = 0];
+		node [height = 0];
+		node [margin = 0.1];
 
-graph [rankdir = "LR"];
-graph [nodesep = 0.5];
-node [fontname = "Helvetica"];
-node [fontsize = 11];
-node [shape = box];
-node [width = 0];
-node [height = 0];
-node [margin = 0.1];
-
-${links}
-
-}`;
+		${links}
+	}`;
 }
 
 function notationToLinks(graph) {
@@ -48,6 +46,15 @@ function updateGraph() {
 	});
 	
 	localStorage.graph = inputElement.value;
+}
+
+function copyToClipboard() {
+	let element = document.createElement('textarea');
+	element.value = notationToLinks(inputElement.value);
+	document.body.appendChild(element);
+	element.select();
+	document.execCommand("copy");
+	document.body.removeChild(element);
 }
 
 if (localStorage.graph)
