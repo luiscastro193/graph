@@ -22,6 +22,7 @@ ${links}
 }
 
 function notationToLinks(graph) {
+	graph = graph.replace(/ $/gm, '');
 	graph = graph.replace(/^[^"\n\r]+$/gm, '"$&"');
 	graph = graph.replace(/ gto /g, '" -> "');
 	graph = graph.replace(/"[^"]+ gand [^"]+"/g, '{$&}');
@@ -45,7 +46,12 @@ function updateGraph() {
 		viz = new Viz({ workerURL });
 		console.error(error);
 	});
+	
+	localStorage.graph = inputElement.value;
 }
+
+if (localStorage.graph)
+	inputElement.value = localStorage.graph;
 
 if (inputElement.value)
 	updateGraph();
