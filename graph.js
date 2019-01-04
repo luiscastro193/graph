@@ -49,12 +49,7 @@ function updateGraph() {
 }
 
 function copyToClipboard() {
-	let element = document.createElement('textarea');
-	element.value = notationToLinks(inputElement.value);
-	document.body.appendChild(element);
-	element.select();
-	document.execCommand("copy");
-	document.body.removeChild(element);
+	clipboard.writeText(notationToLinks(inputElement.value));
 }
 
 if (localStorage.graph)
