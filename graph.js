@@ -21,7 +21,7 @@ function gvString(links) {
 
 function notationToLinks(graph) {
 	graph = graph.replace(/ $/gm, '');
-	graph = graph.replace(/^[^"]+?$/gm, '"$&"');
+	graph = graph.replace(/^[^"\n\r]+$/gm, '"$&"');
 	graph = graph.replace(/ gto /g, '" -> "');
 	graph = graph.replace(/"[^"]* gand [^"]*"/g, '{$&}');
 	graph = graph.replace(/ gand /g, '" "');
