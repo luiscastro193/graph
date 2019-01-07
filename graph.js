@@ -5,7 +5,7 @@ let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
 
 function gvString(links) {
-	return `digraph {
+	return `strict digraph {
 		graph [rankdir = "LR"];
 		graph [nodesep = 0.5];
 		node [fontname = "Helvetica"];
