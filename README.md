@@ -40,3 +40,16 @@ Something gand Another Thing gto That thing
 ### Note
 
 Don't use double quotes `"`
+
+## Graphviz configuration
+
+```gv
+graph [rankdir = "LR"];
+graph [nodesep = 0.5];
+node [fontname = "Helvetica"];
+node [fontsize = 11];
+node [shape = box];
+node [width = 0];
+node [height = 0];
+node [margin = 0.1];
+```
