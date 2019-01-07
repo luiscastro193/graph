@@ -44,6 +44,8 @@ Don't use double quotes `"`
 ## Graphviz configuration
 
 ```gv
+strict digraph {
+
 graph [rankdir = "LR"];
 graph [nodesep = 0.5];
 node [fontname = "Helvetica"];
@@ -52,4 +54,6 @@ node [shape = box];
 node [width = 0];
 node [height = 0];
 node [margin = 0.1];
+
+}
 ```
