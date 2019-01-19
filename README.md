@@ -34,7 +34,7 @@ Edge is not used in ranking the nodes
 
 ```
 Something gto Another thing gconstraint
-Something gand Another Thing gto That thing
+Something gand Another thing gto That thing
 ```
 
 ### Note
