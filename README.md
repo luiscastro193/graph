@@ -8,7 +8,7 @@ Creates an edge between two nodes
 
 ```
 Node 1 gto Node 2 gto Node 3
-Node 3 gto Success
+Node 2 gto Success
 ```
 
 ### gand
