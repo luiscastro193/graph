@@ -8,7 +8,7 @@ function gvString(links) {
 	return `strict digraph {
 		graph [rankdir = "LR"];
 		graph [nodesep = 0.5];
-		node [fontname = "Helvetica Neue"];
+		node [fontname = "Helvetica"];
 		node [fontsize = 11];
 		node [shape = box];
 		node [width = 0];
