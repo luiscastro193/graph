@@ -9,7 +9,7 @@ function gvString(links) {
 		graph [rankdir = "LR"];
 		graph [nodesep = 0.5];
 		node [fontname = "Helvetica"];
-		node [fontsize = 11];
+		node [fontsize = 12];
 		node [shape = box];
 		node [width = 0];
 		node [height = 0];
