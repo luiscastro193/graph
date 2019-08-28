@@ -2,4 +2,4 @@
   for = "*"
   
   [headers.values]
-    cache-control = "public, max-age=10, must-revalidate"
+    Cache-Control = "public, max-age=10"
