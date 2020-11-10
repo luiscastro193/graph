@@ -49,7 +49,7 @@ function updateGraph() {
 }
 
 function copyToClipboard() {
-	clipboard.writeText(notationToLinks(inputElement.value));
+	navigator.clipboard.writeText(notationToLinks(inputElement.value));
 }
 
 if (localStorage.graph)
