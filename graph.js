@@ -1,6 +1,5 @@
 "use strict";
-const workerURL = 'lite.render.js';
-let viz = new Viz({ workerURL });
+let hpccWasm = window["@hpcc-js/wasm"];
 let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
 
@@ -33,16 +32,12 @@ function notationToLinks(graph) {
 }
 
 function elementPromise(input) {
-	return viz.renderSVGElement(gvString(notationToLinks(input)));
+	return hpccWasm.graphviz.layout(gvString(notationToLinks(input)));
 }
 
 function updateGraph() {
 	elementPromise(inputElement.value).then(function(element) {
-		graphSection.innerHTML = '';
-		graphSection.appendChild(element);
-	}).catch(function(error) {
-		viz = new Viz({ workerURL });
-		console.error(error);
+		graphSection.innerHTML = element;
 	});
 	
 	localStorage.graph = inputElement.value;

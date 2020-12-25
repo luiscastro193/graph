@@ -6,9 +6,8 @@
 		<meta name="author" content="Luis Castro Martín">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" href="favicon.ico">
-		<link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
-		<link rel="prefetch" href="lite.render.js">
-		<script defer src="viz.js"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
+		<script defer src="https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/index.min.js"></script>
 		<script defer src="graph.js"></script>
 		<style>
 			* {
@@ -18,12 +17,16 @@
 			text {
 				font-size: 11px;
 			}
+			
+			textarea {
+				width: 100%;
+			}
 		</style>
 	</head>
 
 	<body>
 		<h3><a href="https://github.com/luiscastro193/graph/blob/master/README.md" target="_blank" rel="noopener">Graph drawer</a></h3>
-		<textarea id="inputElement" oninput="updateGraph()" style="width: 100%" rows="4"></textarea>
+		<textarea id="inputElement" oninput="updateGraph()" rows="4"></textarea>
 		<button onclick="copyToClipboard()">Copy to clipboard</button>
 		<br><br>
 		<section id="graphSection"></section>
