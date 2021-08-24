@@ -48,7 +48,7 @@ strict digraph {
 
 graph [rankdir = "LR"];
 graph [nodesep = 0.5];
-node [fontname = "Lexend Deca"];
+node [fontname = "Lexend"];
 node [fontsize = 11];
 node [shape = box];
 node [width = 0];
