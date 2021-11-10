@@ -3,6 +3,8 @@ let hpccWasm = window["@hpcc-js/wasm"];
 let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
 
+hpccWasm.graphvizVersion();
+
 function gvString(links) {
 	return `strict digraph {
 		graph [rankdir = "LR"];
