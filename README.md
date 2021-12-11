@@ -37,9 +37,11 @@ Something gto Another thing gconstraint
 Something gand Another thing gto That thing
 ```
 
-### Note
+### Notes
 
-Don't use double quotes `"`
+Don't use double quotes `"`.
+
+Use `\n` to split text in two or more lines.
 
 ## Graphviz configuration
 
