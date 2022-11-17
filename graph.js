@@ -42,12 +42,12 @@ async function elementPromise(input) {
 		return graphviz.layout(gvString(notationToLinks(input)));
 }
 
-window.updateGraph = function() {
+inputElement.oninput = function() {
 	elementPromise(inputElement.value).then(element => {if (element) graphSection.innerHTML = element});
 	localStorage.graph = inputElement.value;
 }
 
-function copyToClipboard() {
+document.getElementById('copy').onclick = function() {
 	navigator.clipboard.writeText(notationToLinks(inputElement.value));
 }
 
@@ -55,4 +55,4 @@ if (localStorage.graph)
 	inputElement.value = localStorage.graph;
 
 if (inputElement.value)
-	updateGraph();
+	inputElement.oninput();
