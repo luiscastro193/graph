@@ -34,16 +34,16 @@ function notationToLinks(graph) {
 
 let lastDraw = 0;
 
-async function elementPromise(input) {
+async function updateGraph(input) {
 	let drawId = ++lastDraw;
 	let graphviz = await graphvizPromise;
 	
 	if (drawId == lastDraw)
-		return graphviz.layout(gvString(notationToLinks(input)));
+		graphSection.innerHTML = await graphviz.layout(gvString(notationToLinks(inputElement.value)));
 }
 
 inputElement.oninput = function() {
-	elementPromise(inputElement.value).then(element => {if (element) graphSection.innerHTML = element});
+	updateGraph();
 	localStorage.graph = inputElement.value;
 }
 
