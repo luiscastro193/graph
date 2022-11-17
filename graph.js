@@ -39,11 +39,11 @@ async function updateGraph(input) {
 	let graphviz = await graphvizPromise;
 	
 	if (drawId == lastDraw)
-		graphSection.innerHTML = await graphviz.layout(gvString(notationToLinks(inputElement.value)));
+		graphSection.innerHTML = await graphviz.layout(gvString(notationToLinks(input)));
 }
 
 inputElement.oninput = function() {
-	updateGraph();
+	updateGraph(inputElement.value);
 	localStorage.graph = inputElement.value;
 }
 
