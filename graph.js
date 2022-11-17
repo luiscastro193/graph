@@ -1,8 +1,7 @@
 "use strict";
-import { Graphviz } from "https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js";
+const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js").then(module => module.Graphviz.load());
 let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
-const graphvizPromise = Graphviz.load();
 
 function gvString(links) {
 	return `strict digraph {
