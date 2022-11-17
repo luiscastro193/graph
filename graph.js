@@ -1,9 +1,8 @@
 "use strict";
-let hpccWasm = window["@hpcc-js/wasm"];
+import { Graphviz } from "https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js";
 let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
-
-hpccWasm.graphvizVersion();
+const graphviz = Graphviz.load();
 
 function gvString(links) {
 	return `strict digraph {
@@ -34,11 +33,11 @@ function notationToLinks(graph) {
 	return graph;
 }
 
-function elementPromise(input) {
-	return hpccWasm.graphviz.layout(gvString(notationToLinks(input)));
+async function elementPromise(input) {
+	return (await graphviz).layout(gvString(notationToLinks(input)));
 }
 
-function updateGraph() {
+window.updateGraph = function() {
 	elementPromise(inputElement.value).then(function(element) {
 		graphSection.innerHTML = element;
 	});
