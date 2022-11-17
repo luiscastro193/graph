@@ -2,7 +2,7 @@
 import { Graphviz } from "https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js";
 let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
-const graphviz = Graphviz.load();
+const graphvizPromise = Graphviz.load();
 
 function gvString(links) {
 	return `strict digraph {
@@ -33,15 +33,18 @@ function notationToLinks(graph) {
 	return graph;
 }
 
+let lastDraw = 0;
+
 async function elementPromise(input) {
-	return (await graphviz).layout(gvString(notationToLinks(input)));
+	let drawId = ++lastDraw;
+	let graphviz = await graphvizPromise;
+	
+	if (drawId == lastDraw)
+		return graphviz.layout(gvString(notationToLinks(input)));
 }
 
 window.updateGraph = function() {
-	elementPromise(inputElement.value).then(function(element) {
-		graphSection.innerHTML = element;
-	});
-	
+	elementPromise(inputElement.value).then(element => {if (element) graphSection.innerHTML = element});
 	localStorage.graph = inputElement.value;
 }
 
