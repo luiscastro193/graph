@@ -27,7 +27,7 @@ function notationToLinks(graph) {
 	graph = graph.replace(/"[^"]* gsame [^"]*"/g, '{rank=same $&}');
 	graph = graph.replace(/ gsame /g, '" "');
 	graph = graph.replace(/ gconstraint"/g, '" [constraint = false]');
-	graph = graph.replace(/ ?\\n ?/g, '\n');
+	graph = graph.replace(/ ?\\n ?/g, '\\n');
 	
 	return graph;
 }
