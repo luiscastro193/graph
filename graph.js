@@ -2,6 +2,7 @@
 const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js").then(module => module.Graphviz.load());
 let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
+const splitLimit = 10;
 
 function gvString(links) {
 	return `strict digraph {
@@ -18,6 +19,20 @@ function gvString(links) {
 	}`;
 }
 
+function split(text) {
+	if (text.length <= splitLimit || text.includes('\n'))
+		return text;
+	
+	let spaces = [...text.matchAll(" ")].map(match => match.index);
+	if (spaces.length == 0) return text;
+	
+	let optimalCut = (text.length - 1) / 2;
+	let distances = spaces.map(index => Math.abs(index - optimalCut));
+	let bestSpace = spaces[distances.indexOf(Math.min(...distances))];
+	
+	return text.slice(0, bestSpace) + '\\n' + text.slice(bestSpace + 1);
+}
+
 function notationToLinks(graph) {
 	graph = graph.replace(/[ \\]+$/gm, '');
 	graph = graph.replace(/^[^"]+?$/gm, '"$&"');
@@ -28,6 +43,7 @@ function notationToLinks(graph) {
 	graph = graph.replace(/ gsame /g, '" "');
 	graph = graph.replace(/ gconstraint"/g, '" [constraint = false]');
 	graph = graph.replace(/ ?\\n ?/g, '\\n');
+	graph = graph.replace(/"[^"]+"/g, split);
 	
 	return graph;
 }
