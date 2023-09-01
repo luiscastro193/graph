@@ -20,7 +20,7 @@ function gvString(links) {
 }
 
 function split(text) {
-	if (text.length <= splitLimit || text.includes('\n'))
+	if (text.length <= splitLimit || text.includes('\\n'))
 		return text;
 	
 	let spaces = [...text.matchAll(" ")].map(match => match.index);
