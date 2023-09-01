@@ -2,7 +2,7 @@
 const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js").then(module => module.Graphviz.load());
 let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
-const splitLimit = 10;
+const splitLimit = 15;
 
 function gvString(links) {
 	return `strict digraph {
