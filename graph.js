@@ -26,9 +26,9 @@ function split(text) {
 	let spaces = [...text.matchAll(" ")].map(match => match.index);
 	if (spaces.length == 0) return text;
 	
-	let optimalCut = (text.length - 1) / 2;
-	let distances = spaces.map(index => Math.abs(index - optimalCut));
-	let bestSpace = spaces[distances.indexOf(Math.min(...distances))];
+	let maxIndex = text.length - 1;
+	let lengths = spaces.map(index => Math.max(index, maxIndex - index));
+	let bestSpace = spaces[lengths.indexOf(Math.min(...lengths))];
 	
 	return text.slice(0, bestSpace) + '\\n' + text.slice(bestSpace + 1);
 }
