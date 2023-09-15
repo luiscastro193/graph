@@ -4,12 +4,12 @@ let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
 const splitLimit = 15;
 
-function gvString(links) {
+function gvString(links, font = "Helvetica", fontSize = 12) {
 	return `strict digraph {
 	graph [rankdir = "LR"];
 	graph [nodesep = 0.5];
-	node [fontname = "Helvetica"];
-	node [fontsize = 12];
+	node [fontname = "${font}"];
+	node [fontsize = ${fontSize}];
 	node [shape = box];
 	node [width = 0];
 	node [height = 0];
@@ -79,7 +79,7 @@ function download(blob, filename) {
 }
 
 document.getElementById('download').onclick = function() {
-	let content = gvString(notationToLinks(inputElement.value));
+	let content = gvString(notationToLinks(inputElement.value), "Lexend", 11);
 	download(new Blob([content], {type: "text/plain"}), "graph.gv");
 }
 
