@@ -80,7 +80,7 @@ function download(blob, filename) {
 
 document.getElementById('download').onclick = function() {
 	let content = gvString(notationToLinks(inputElement.value), "Lexend", 11);
-	download(new Blob([content], {type: "text/plain"}), "graph.gv");
+	download(new Blob([content], {type: "text/vnd.graphviz"}), "graph.gv");
 }
 
 if (localStorage.graph)
