@@ -6,17 +6,17 @@ const splitLimit = 15;
 
 function gvString(links) {
 	return `strict digraph {
-		graph [rankdir = "LR"];
-		graph [nodesep = 0.5];
-		node [fontname = "Helvetica"];
-		node [fontsize = 12];
-		node [shape = box];
-		node [width = 0];
-		node [height = 0];
-		node [margin = 0.1];
+	graph [rankdir = "LR"];
+	graph [nodesep = 0.5];
+	node [fontname = "Helvetica"];
+	node [fontsize = 12];
+	node [shape = box];
+	node [width = 0];
+	node [height = 0];
+	node [margin = 0.1];
 
-		${links}
-	}`;
+	${links}
+}`;
 }
 
 function split(text) {
@@ -65,6 +65,22 @@ inputElement.oninput = function() {
 
 document.getElementById('copy').onclick = function() {
 	navigator.clipboard.writeText(notationToLinks(inputElement.value));
+}
+
+function download(blob, filename) {
+	let link = document.createElement("a");
+	let url = URL.createObjectURL(blob);
+	link.href = url;
+	link.download = filename;
+	document.body.append(link);
+	link.click();
+	URL.revokeObjectURL(url);
+	link.remove();
+}
+
+document.getElementById('download').onclick = function() {
+	let content = gvString(notationToLinks(inputElement.value));
+	download(new Blob([content], {type: "text/plain"}), "graph.gv");
 }
 
 if (localStorage.graph)
