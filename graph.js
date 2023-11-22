@@ -1,5 +1,6 @@
 "use strict";
 const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js").then(module => module.Graphviz.load());
+const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string.js");
 let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
 const splitLimit = 15;
@@ -83,7 +84,22 @@ document.getElementById('download').onclick = function() {
 	download(new Blob([content], {type: "text/vnd.graphviz"}), "graph.gv");
 }
 
-if (localStorage.graph)
+document.getElementById('share').onclick = async function() {
+	let compressed = await (await zipPromise).zip(inputElement.value);
+	let url = new URL('#' + compressed, location.href);
+	
+	if (navigator.share)
+		navigator.share({url});
+	else
+		navigator.clipboard.writeText(url).then(() => alert("Enlace copiado al portapapeles"));
+}
+
+if (location.hash) {
+	let uncompressed = await (await zipPromise).unzip(location.hash.slice(1));
+	inputElement.value = uncompressed;
+	location.hash = '';
+}
+else if (localStorage.graph)
 	inputElement.value = localStorage.graph;
 
 if (inputElement.value)
