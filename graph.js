@@ -85,6 +85,7 @@ document.getElementById('download').onclick = function() {
 }
 
 document.getElementById('share').onclick = async function() {
+	if (!inputElement.reportValidity()) return false;
 	let compressed = await (await zipPromise).zip(inputElement.value);
 	let url = new URL('#' + compressed, location.href);
 	
