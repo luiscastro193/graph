@@ -91,7 +91,7 @@ document.getElementById('share').onclick = async function() {
 	if (navigator.share)
 		navigator.share({url});
 	else
-		navigator.clipboard.writeText(url).then(() => alert("Enlace copiado al portapapeles"));
+		navigator.clipboard.writeText(url).then(() => alert("Link copied to clipboard"));
 }
 
 if (location.hash) {
