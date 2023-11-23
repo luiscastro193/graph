@@ -51,7 +51,7 @@ Don't use double quotes `"`.
 
 Use `\n` to split text in two or more lines.
 
-## Graphviz configuration
+## [Graphviz](https://graphviz.org/) configuration
 
 ```gv
 strict digraph {
