@@ -98,7 +98,7 @@ document.getElementById('share').onclick = async function() {
 if (location.hash) {
 	let uncompressed = await (await zipPromise).unzip(location.hash.slice(1));
 	inputElement.value = uncompressed;
-	location.hash = '';
+	history.replaceState(null, '', '.');
 }
 else if (localStorage.graph)
 	inputElement.value = localStorage.graph;
