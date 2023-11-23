@@ -11,6 +11,8 @@ Node 1 gto Node 2 gto Node 3
 Node 2 gto Success
 ```
 
+[Live demo](https://luiscastro193.github.io/graph/#eJzzy09JVTBUSC_JV_ADMY0QTGMuJJHg0uTk1OJiAFsmDuI)
+
 ### gand
 
 Creates multiple edges simultaneously
@@ -18,6 +20,8 @@ Creates multiple edges simultaneously
 ```
 Node 1 gand Node 2 gand Node 3 gto A gand B
 ```
+
+[Live demo](https://luiscastro193.github.io/graph/#eJzzy09JVTBUSE_MS1HwA7GNkNjGCukl-QqOEBEnACUDDSQ)
 
 ### gsame
 
@@ -28,6 +32,8 @@ A gto B gto C gto D
 A gsame B gsame C
 ```
 
+[Live demo](https://luiscastro193.github.io/graph/#eJxzVEgvyVdwApPOYNKFy1EhvTgxNxUkCqadAc9nCxM)
+
 ### gconstraint
 
 Edge is not used in ranking the nodes
@@ -36,6 +42,8 @@ Edge is not used in ranking the nodes
 Something gto Another thing gconstraint
 Something gand Another thing gto That thing
 ```
+
+[Live demo](https://luiscastro193.github.io/graph/#eJwLzs9NLcnIzEtXSC_JV3DMyy_JSC1SgIok5-cVlxQlZuaVcAUj1CXmpaArBGoNyUgsgXABIVwfAg)
 
 ### Notes
 
