@@ -52,7 +52,7 @@ function notationToLinks(graph) {
 let lastDraw = 0;
 
 async function updateGraph(input) {
-	let drawId = ++lastDraw;
+	const drawId = lastDraw = (lastDraw + 1) % Number.MAX_SAFE_INTEGER;
 	let graphviz = await graphvizPromise;
 	
 	if (drawId == lastDraw)
