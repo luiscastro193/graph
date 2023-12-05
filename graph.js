@@ -96,7 +96,10 @@ document.getElementById('share').onclick = async function() {
 }
 
 if (location.hash) {
-	let uncompressed = await (await zipPromise).unzip(location.hash.slice(1));
+	let uncompressed = await (await zipPromise).unzip(location.hash.slice(1)).catch(error => {
+		console.error(error);
+		return "Invalid link";
+	});
 	inputElement.value = uncompressed;
 	history.replaceState(null, '', ' ');
 }
