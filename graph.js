@@ -29,16 +29,18 @@ function customMetrics(links) {
 
 function gvString(links, metrics = true) {
 	return `strict digraph {
-	graph [rankdir = "LR"];
-	graph [nodesep = 0.5];
-	node [fontname = "Lexend"];
-	node [fontsize = 11];
-	node [shape = box];
-	node [width = 0];
-	node [height = 0];
-	node [margin = 0.1];
 
-	${links}${metrics ? customMetrics(links, metrics): ''}
+graph [rankdir = "LR"];
+graph [nodesep = 0.5];
+node [fontname = "Lexend"];
+node [fontsize = 11];
+node [shape = box];
+node [width = 0];
+node [height = 0];
+node [margin = 0.1];
+
+${links}${metrics ? customMetrics(links, metrics): ''}
+
 }`;
 }
 
