@@ -7,7 +7,6 @@ const splitLimit = 15;
 
 const lineHeight = 11 * 1.25 / 72;
 const measurer = new OffscreenCanvas(100, 100).getContext("2d");
-await document.fonts.ready;
 measurer.font = "11pt Lexend";
 
 function measure(node) {
@@ -77,6 +76,7 @@ let lastDraw = 0;
 
 async function updateGraph(input) {
 	const drawId = lastDraw = (lastDraw + 1) % Number.MAX_SAFE_INTEGER;
+	await document.fonts.ready;
 	let graphviz = await graphvizPromise;
 	
 	if (drawId == lastDraw)
