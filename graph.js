@@ -18,7 +18,7 @@ function measure(node) {
 }
 
 function getMetrics(node) {
-	let measures = measure(node)
+	let measures = measure(node);
 	return `${node} [width=${measures[0]} height=${measures[1]} fixedsize=true]`;
 }
 
