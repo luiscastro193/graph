@@ -5,18 +5,40 @@ let inputElement = document.getElementById('inputElement');
 let graphSection = document.getElementById('graphSection');
 const splitLimit = 15;
 
-function gvString(links, font = "Helvetica", fontSize = 12) {
+const lineHeight = 11 * 1.25 / 72;
+const measurer = new OffscreenCanvas(100, 100).getContext("2d");
+await document.fonts.ready;
+measurer.font = "11pt Lexend";
+
+function measure(node) {
+	node = node.replaceAll('"', '').split('\\n');
+	return [
+		Math.max(...node.map(text => measurer.measureText(text).width)) / 96 + .2,
+		lineHeight * node.length + .2
+	];
+}
+
+function getMetrics(node) {
+	let measures = measure(node)
+	return `${node} [width=${measures[0]} height=${measures[1]} fixedsize=true]`;
+}
+
+function customMetrics(links) {
+	return '\n' + [...new Set(links.match(/"[^"]*"/g))].map(getMetrics).join('\n');
+}
+
+function gvString(links, metrics = true) {
 	return `strict digraph {
 	graph [rankdir = "LR"];
 	graph [nodesep = 0.5];
-	node [fontname = "${font}"];
-	node [fontsize = ${fontSize}];
+	node [fontname = "Lexend"];
+	node [fontsize = 11];
 	node [shape = box];
 	node [width = 0];
 	node [height = 0];
 	node [margin = 0.1];
 
-	${links}
+	${links}${metrics ? customMetrics(links, metrics): ''}
 }`;
 }
 
@@ -24,7 +46,7 @@ function split(text) {
 	if (text.length <= splitLimit || text.includes('\\n'))
 		return text;
 	
-	let spaces = [...text.matchAll(" ")].map(match => match.index);
+	let spaces = [...text.matchAll(' ')].map(match => match.index);
 	if (spaces.length == 0) return text;
 	
 	let maxIndex = text.length - 1;
@@ -80,8 +102,8 @@ function download(blob, filename) {
 }
 
 document.getElementById('download').onclick = function() {
-	let content = gvString(notationToLinks(inputElement.value), "Lexend", 11);
-	download(new Blob([content], {type: "text/vnd.graphviz"}), "graph.gv");
+	let content = gvString(notationToLinks(inputElement.value), false);
+	download(new Blob([content]), "graph.gv");
 }
 
 document.getElementById('share').onclick = async function() {
