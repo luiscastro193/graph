@@ -111,8 +111,16 @@ document.getElementById('source').onclick = function() {
 	download(new Blob([content]), "graph.gv");
 }
 
+async function request(resource, options) {
+	let response = await fetch(resource, options);
+	if (response.ok) return response; else throw response;
+}
+
+const font = Promise.all([graphviz, zipPromise]).then(() => request('lexend.svg')).then(response => response.text());
+
 document.getElementById('svg').onclick = async function() {
 	let content = await svg(inputElement.value);
+	content = content.replace(/(?<=<svg[^>]+)>/m, await font);
 	download(new Blob([content]), "graph.svg");
 }
 
