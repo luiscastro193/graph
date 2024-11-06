@@ -116,7 +116,7 @@ async function request(resource, options) {
 	if (response.ok) return response; else throw response;
 }
 
-const font = Promise.all([graphviz, zipPromise]).then(() => request('lexend.svg')).then(response => response.text());
+const font = Promise.all([graphviz, zipPromise]).then(() => request('lexend.txt')).then(response => response.text());
 
 document.getElementById('svg').onclick = async function() {
 	let content = await svg(inputElement.value);
