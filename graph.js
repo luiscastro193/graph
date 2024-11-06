@@ -1,10 +1,10 @@
 "use strict";
 const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js").then(module => module.Graphviz.load());
 const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string.js");
-let inputElement = document.getElementById('inputElement');
-let graphSection = document.getElementById('graphSection');
+const graphviz = document.fonts.ready.then(() => graphvizPromise);
+const inputElement = document.getElementById('inputElement');
+const graphSection = document.getElementById('graphSection');
 const splitLimit = 15;
-
 const lineHeight = 11 * 1.25 / 72;
 const measurer = new OffscreenCanvas(100, 100).getContext("2d");
 measurer.font = "11pt Lexend";
@@ -72,15 +72,18 @@ function notationToLinks(graph) {
 	return graph;
 }
 
+async function svg(input) {
+	return (await graphviz).layout(gvString(notationToLinks(input)));
+}
+
 let lastDraw = 0;
 
 async function updateGraph(input) {
 	const drawId = lastDraw = (lastDraw + 1) % Number.MAX_SAFE_INTEGER;
-	await document.fonts.ready;
-	let graphviz = await graphvizPromise;
+	await graphviz;
 	
 	if (drawId == lastDraw)
-		graphSection.innerHTML = await graphviz.layout(gvString(notationToLinks(input)));
+		graphSection.innerHTML = await svg(input);
 }
 
 inputElement.oninput = function() {
@@ -103,9 +106,14 @@ function download(blob, filename) {
 	link.remove();
 }
 
-document.getElementById('download').onclick = function() {
+document.getElementById('source').onclick = function() {
 	let content = gvString(notationToLinks(inputElement.value), false);
 	download(new Blob([content]), "graph.gv");
+}
+
+document.getElementById('svg').onclick = async function() {
+	let content = await svg(inputElement.value);
+	download(new Blob([content]), "graph.svg");
 }
 
 document.getElementById('share').onclick = async function() {
