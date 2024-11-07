@@ -150,4 +150,8 @@ else if (localStorage.graph)
 	inputElement.value = localStorage.graph;
 
 if (inputElement.value) inputElement.oninput();
-window.onhashchange = handleHash;
+
+window.onhashchange = async () => {
+	await handleHash();
+	inputElement.oninput();
+};
