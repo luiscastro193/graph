@@ -135,7 +135,7 @@ document.getElementById('share').onclick = async function() {
 		navigator.clipboard.writeText(url).then(() => alert("Link copied to clipboard"));
 }
 
-if (location.hash) {
+async function handleHash() {
 	let uncompressed = await (await zipPromise).unzip(location.hash.slice(1)).catch(error => {
 		console.error(error);
 		return "Error gto Check the link gand Update your browser";
@@ -143,8 +143,13 @@ if (location.hash) {
 	inputElement.value = uncompressed;
 	history.replaceState(null, '', ' ');
 }
+
+if (location.hash)
+	await handleHash();
 else if (localStorage.graph)
 	inputElement.value = localStorage.graph;
 
 if (inputElement.value)
 	inputElement.oninput();
+
+window.onhashchange = handleHash;
