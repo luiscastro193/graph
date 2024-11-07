@@ -149,7 +149,5 @@ if (location.hash)
 else if (localStorage.graph)
 	inputElement.value = localStorage.graph;
 
-if (inputElement.value)
-	inputElement.oninput();
-
+if (inputElement.value) inputElement.oninput();
 window.onhashchange = handleHash;
