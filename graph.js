@@ -43,18 +43,19 @@ ${links}${metrics ? customMetrics(links, metrics): ''}
 }`;
 }
 
+function splitAt(index, text) {
+	return text.slice(0, index) + '\\n' + text.slice(index + 1);
+}
+
 function split(text) {
 	if (text.length <= splitLimit || text.includes('\\n'))
 		return text;
 	
 	let spaces = [...text.matchAll(' ')].map(match => match.index);
 	if (spaces.length == 0) return text;
-	
-	let maxIndex = text.length - 1;
-	let lengths = spaces.map(index => Math.max(index, maxIndex - index));
+	let lengths = spaces.map(index => measure(splitAt(index, text))[0]);
 	let bestSpace = spaces[lengths.indexOf(Math.min(...lengths))];
-	
-	return text.slice(0, bestSpace) + '\\n' + text.slice(bestSpace + 1);
+	return splitAt(bestSpace, text);
 }
 
 function notationToLinks(graph) {
