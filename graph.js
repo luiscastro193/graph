@@ -120,6 +120,7 @@ async function request(resource, options) {
 const font = Promise.all([graphviz, zipPromise]).then(() => request('lexend.txt')).then(response => response.text());
 
 document.getElementById('svg').onclick = async function() {
+	if (!inputElement.reportValidity()) return false;
 	let content = await svg(inputElement.value);
 	content = content.replace(/(?<=<svg[^>]+)>/m, await font);
 	download(new Blob([content]), "graph.svg");
