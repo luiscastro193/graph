@@ -6,7 +6,7 @@
 
 Creates an edge between two nodes
 
-```
+```text
 Node 1 gto Node 2 gto Node 3
 Node 2 gto Success
 ```
@@ -17,7 +17,7 @@ Node 2 gto Success
 
 Creates multiple edges simultaneously
 
-```
+```text
 Node 1 gand Node 2 gand Node 3 gto A gand B
 ```
 
@@ -27,7 +27,7 @@ Node 1 gand Node 2 gand Node 3 gto A gand B
 
 Forces nodes to be placed on the same rank
 
-```
+```text
 A gto B gto C gto D
 A gsame B gsame C
 ```
@@ -38,7 +38,7 @@ A gsame B gsame C
 
 Edge is not used in ranking the nodes
 
-```
+```text
 Something gto Another thing gconstraint
 Something gand Another thing gto That thing
 ```
@@ -53,7 +53,7 @@ Use `\n` to split text in two or more lines.
 
 ## [Graphviz](https://graphviz.org/) configuration
 
-```gv
+```dot
 strict digraph {
 
 graph [rankdir = "LR"];
