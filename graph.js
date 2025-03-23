@@ -7,7 +7,7 @@ const graphSection = document.getElementById('graphSection');
 const splitLimit = 15;
 const lineHeight = 11 * 1.25 / 72;
 const measurer = new OffscreenCanvas(100, 100).getContext("2d");
-measurer.font = "11pt Lexend";
+measurer.font = "11pt InterVariable";
 
 function measure(node) {
 	node = node.replaceAll('"', '').split('\\n');
@@ -31,7 +31,7 @@ function gvString(links, metrics = true) {
 
 graph [rankdir = "LR"];
 graph [nodesep = 0.5];
-node [fontname = "Lexend"];
+node [fontname = "InterVariable"];
 node [fontsize = 11];
 node [shape = box];
 node [width = 0];
@@ -117,7 +117,7 @@ async function request(resource, options) {
 	if (response.ok) return response; else throw response;
 }
 
-const font = Promise.all([graphviz, zipPromise]).then(() => request('lexend.txt')).then(response => response.text());
+const font = Promise.all([graphviz, zipPromise]).then(() => request('inter.txt')).then(response => response.text());
 
 document.getElementById('svg').onclick = async function() {
 	if (!inputElement.reportValidity()) return false;
