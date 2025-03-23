@@ -59,7 +59,7 @@ strict digraph {
 graph [rankdir = "LR"];
 graph [nodesep = 0.5];
 node [fontname = "InterVariable"];
-node [fontsize = 11];
+node [fontsize = 12];
 node [shape = box];
 node [width = 0];
 node [height = 0];

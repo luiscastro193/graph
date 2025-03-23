@@ -5,9 +5,9 @@ const graphviz = document.fonts.ready.then(() => graphvizPromise);
 const inputElement = document.getElementById('inputElement');
 const graphSection = document.getElementById('graphSection');
 const splitLimit = 15;
-const lineHeight = 11 * 1.25 / 72;
+const lineHeight = 12 * 1.15 / 72;
 const measurer = new OffscreenCanvas(100, 100).getContext("2d");
-measurer.font = "11pt InterVariable";
+measurer.font = "12pt InterVariable";
 
 function measure(node) {
 	node = node.replaceAll('"', '').split('\\n');
@@ -32,7 +32,7 @@ function gvString(links, metrics = true) {
 graph [rankdir = "LR"];
 graph [nodesep = 0.5];
 node [fontname = "InterVariable"];
-node [fontsize = 11];
+node [fontsize = 12];
 node [shape = box];
 node [width = 0];
 node [height = 0];
