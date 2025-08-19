@@ -6,8 +6,11 @@ body {
 	width: max-content;
 }
 
-textarea {
+body > * {
 	width: calc(100dvw - 16px);
+}
+
+textarea {
 	position: sticky;
 	top: 8px;
 	left: 8px;
@@ -21,6 +24,7 @@ textarea {
 }
 
 #graphSection {
+	width: max-content;
 	margin-right: 30rem;
 	margin-bottom: 7rem;
 }
