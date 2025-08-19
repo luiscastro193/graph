@@ -16,5 +16,9 @@ textarea {
 .buttons {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1em;
+	gap: 1rem;
+}
+
+#graphSection {
+	margin-right: 20rem;
 }
