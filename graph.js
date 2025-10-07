@@ -1,5 +1,5 @@
 "use strict";
-const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm@2.26.1/dist/graphviz.js").then(module => module.Graphviz.load());
+const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js").then(module => module.Graphviz.load());
 const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string.js");
 const graphviz = document.fonts.ready.then(() => graphvizPromise);
 const inputElement = document.getElementById('inputElement');
