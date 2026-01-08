@@ -18,7 +18,7 @@ function measure(node) {
 }
 
 function getMetrics(node) {
-	let measures = measure(node);
+	const measures = measure(node);
 	return `${node} [width=${measures[0]} height=${measures[1]} fixedsize=true]`;
 }
 
@@ -47,15 +47,26 @@ function splitAt(index, text) {
 	return text.slice(0, index) + '\\n' + text.slice(index + 1);
 }
 
-function split(text) {
-	if (text.length <= splitLimit || text.includes('\\n'))
-		return text;
+function minIndex(array) {
+	let minIndex = -1;
+	let minValue = Infinity;
 	
-	let spaces = [...text.matchAll(' ')].map(match => match.index);
+	for (let index = 0; index < array.length; index++) {
+		if (array[index] < minValue) {
+			minIndex = index;
+			minValue = array[index];
+		}
+	}
+	
+	return minIndex;
+}
+
+function split(text) {
+	if (text.length <= splitLimit || text.includes('\\n')) return text;
+	const spaces = [...text.matchAll(' ')].map(match => match.index);
 	if (spaces.length == 0) return text;
-	let lengths = spaces.map(index => measure(splitAt(index, text))[0]);
-	let bestSpace = spaces[lengths.indexOf(Math.min(...lengths))];
-	return splitAt(bestSpace, text);
+	const lengths = spaces.map(index => measure(splitAt(index, text))[0]);
+	return splitAt(spaces[minIndex(lengths)], text);
 }
 
 function notationToLinks(graph) {
