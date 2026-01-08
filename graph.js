@@ -48,17 +48,16 @@ function splitAt(index, text) {
 }
 
 function minIndex(array) {
-	let minIndex = -1;
-	let minValue = Infinity;
+	let index = -1, minValue = Infinity;
 	
-	for (let index = 0; index < array.length; index++) {
-		if (array[index] < minValue) {
-			minIndex = index;
-			minValue = array[index];
+	for (let i = 0; i < array.length; i++) {
+		if (array[i] < minValue) {
+			index = i;
+			minValue = array[i];
 		}
 	}
 	
-	return minIndex;
+	return index;
 }
 
 function split(text) {
