@@ -90,7 +90,7 @@ async function svg(input) {
 let lastDraw = 0;
 
 async function updateGraph(input) {
-	const drawId = lastDraw = (lastDraw + 1) % Number.MAX_SAFE_INTEGER;
+	const drawId = ++lastDraw;
 	await graphviz;
 	
 	if (drawId == lastDraw)
