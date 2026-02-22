@@ -11,7 +11,8 @@ const graphviz = document.fonts.ready.then(() => {
 	measurer.font = "12pt InterVariable";
 	const fontMetrics = measurer.measureText("M");
 	lineHeight = (fontMetrics.fontBoundingBoxAscent + fontMetrics.fontBoundingBoxDescent) / 96;
-}).then(() => graphvizPromise);
+	return graphvizPromise;
+});
 
 function measure(node) {
 	node = node.replaceAll('"', '').split('\\n');
