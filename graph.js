@@ -1,13 +1,17 @@
 "use strict";
 const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm/dist/graphviz.js").then(module => module.Graphviz.load());
 const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string.js");
-const graphviz = document.fonts.ready.then(() => graphvizPromise);
 const inputElement = document.getElementById('inputElement');
 const graphSection = document.getElementById('graphSection');
 const splitLimit = 15;
-const lineHeight = 12 * 1.15 / 72;
 const measurer = new OffscreenCanvas(100, 100).getContext("2d");
-measurer.font = "12pt InterVariable";
+let lineHeight;
+
+const graphviz = document.fonts.ready.then(() => {
+	measurer.font = "12pt InterVariable";
+	const fontMetrics = measurer.measureText("M");
+	lineHeight = (fontMetrics.fontBoundingBoxAscent + fontMetrics.fontBoundingBoxDescent) / 96;
+}).then(() => graphvizPromise);
 
 function measure(node) {
 	node = node.replaceAll('"', '').split('\\n');
