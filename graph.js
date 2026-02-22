@@ -4,13 +4,11 @@ const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string
 const inputElement = document.getElementById('inputElement');
 const graphSection = document.getElementById('graphSection');
 const splitLimit = 15;
+const lineHeight = 12 * 1.2 / 72;
 const measurer = new OffscreenCanvas(100, 100).getContext("2d");
-let lineHeight;
 
 const graphviz = document.fonts.ready.then(() => {
 	measurer.font = "12pt InterVariable";
-	const fontMetrics = measurer.measureText("M");
-	lineHeight = (fontMetrics.fontBoundingBoxAscent + fontMetrics.fontBoundingBoxDescent) / 96;
 	return graphvizPromise;
 });
 
