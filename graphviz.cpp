@@ -1,0 +1,55 @@
+#include <emscripten/bind.h>
+#include <gvc.h>
+#include <string>
+
+extern "C" {
+	extern gvplugin_library_t gvplugin_dot_layout_LTX_library;
+	extern gvplugin_library_t gvplugin_core_LTX_library;
+}
+
+static std::string last_error;
+
+static GVC_t* init() {
+	static const lt_symlist_t plugins[] = {
+		{"gvplugin_dot_layout_LTX_library", &gvplugin_dot_layout_LTX_library},
+		{"gvplugin_core_LTX_library", &gvplugin_core_LTX_library},
+		{0, 0}
+	};
+
+	agseterrf([](char* message) {
+		last_error += message;
+		return 0;
+	});
+
+	return gvContextPlugins(plugins, 0);
+}
+
+static GVC_t* context = init();
+
+static std::string render(const std::string& source, bool is_inline) {
+	last_error.clear();
+	std::string result;
+	Agraph_t* graph = agmemread(source.c_str());
+	if (!graph) return result;
+
+	if (gvLayout(context, graph, "dot") == 0) {
+		char* output = nullptr;
+		size_t size = 0;
+		gvRenderData(context, graph, is_inline ? "svg_inline" : "svg", &output, &size);
+		if (output) result.assign(output, size);
+		gvFreeRenderData(output);
+		gvFreeLayout(context, graph);
+	}
+
+	agclose(graph);
+	return result;
+}
+
+static std::string error() {
+	return last_error;
+}
+
+EMSCRIPTEN_BINDINGS(graphviz) {
+	emscripten::function("render", &render);
+	emscripten::function("error", &error);
+}

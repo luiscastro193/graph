@@ -1,5 +1,5 @@
 "use strict";
-const graphvizPromise = import("https://cdn.jsdelivr.net/npm/@hpcc-js/wasm-graphviz/dist/index.js").then(module => module.Graphviz.load());
+const graphvizPromise = import("./graphviz.js").then(module => module.default());
 const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string.js");
 const inputElement = document.getElementById('inputElement');
 const graphSection = document.getElementById('graphSection');
@@ -86,8 +86,11 @@ function notationToLinks(graph) {
 	return graph;
 }
 
-async function svg(input, format = "svg") {
-	return (await graphviz).layout(gvString(notationToLinks(input)), format);
+async function svg(input, inline = false) {
+	const {render, error} = await graphviz;
+	const result = render(gvString(notationToLinks(input)), inline);
+	if (!result) throw new Error(error());
+	return result;
 }
 
 let lastDraw = 0;
@@ -97,7 +100,7 @@ async function updateGraph(input) {
 	await graphviz;
 	
 	if (drawId == lastDraw)
-		graphSection.innerHTML = await svg(input, "svg_inline");
+		graphSection.innerHTML = await svg(input, true);
 }
 
 inputElement.oninput = function() {
