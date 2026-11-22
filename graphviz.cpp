@@ -1,5 +1,8 @@
-#include <emscripten/bind.h>
+#include <emscripten/emscripten.h>
+#define CAPI extern "C" EMSCRIPTEN_KEEPALIVE
+
 #include <gvc.h>
+#include <cstdlib>
 #include <string>
 
 extern "C" {
@@ -35,30 +38,24 @@ static GVC_t* init() {
 
 static GVC_t* context = init();
 
-static std::string render(const std::string& source, bool is_inline) {
+CAPI char* render(char* source, bool is_inline) {
 	last_error.clear();
-	std::string result;
-	Agraph_t* graph = agmemread(source.c_str());
-	if (!graph) return result;
+	Agraph_t* graph = agmemread(source);
+	free(source);
+	if (!graph) return nullptr;
+	char* output = nullptr;
+	size_t size;
 
-	if (gvLayout(context, graph, "dot") == 0) {
-		char* output = nullptr;
-		size_t size = 0;
-		gvRenderData(context, graph, is_inline ? "svg_inline" : "svg", &output, &size);
-		if (output) result.assign(output, size);
+	if (gvLayout(context, graph, "dot") != 0 || gvRenderData(context, graph, is_inline ? "svg_inline" : "svg", &output, &size) != 0) {
 		gvFreeRenderData(output);
-		gvFreeLayout(context, graph);
+		output = nullptr;
 	}
 
+	gvFreeLayout(context, graph);
 	agclose(graph);
-	return result;
+	return output;
 }
 
-static std::string error() {
-	return last_error;
-}
-
-EMSCRIPTEN_BINDINGS(graphviz) {
-	emscripten::function("render", &render);
-	emscripten::function("error", &error);
+CAPI const char* error() {
+	return last_error.c_str();
 }

@@ -20,14 +20,14 @@ cmake --build $BUILD --target gvplugin_core gvplugin_dot_layout
 
 em++ graphviz.cpp \
 	-I$SOURCE/lib/{gvc,common,cgraph,cdt,pathplan} $BUILD/{lib,plugin}/*/*.a \
-	-O3 -fno-exceptions -fno-rtti -DEMSCRIPTEN_HAS_UNBOUND_TYPE_NAMES=0 -DNDEBUG \
+	-O3 -fno-exceptions -fno-rtti -DNDEBUG \
 	$FEATURES \
 	-sENVIRONMENT=web -sEXPORT_ES6=1 --no-entry \
-	-sSTRICT=1 -sJS_MATH=1 --closure 1 -lembind -sEMBIND_AOT=1 \
+	-sSTRICT=1 -sJS_MATH=1 --closure 1 -sEXPORT_KEEPALIVE=1 \
 	-sMINIMAL_RUNTIME=1 -sMINIMAL_RUNTIME_STREAMING_WASM_INSTANTIATION=1 \
 	-sMALLOC=emmalloc -sINITIAL_HEAP=65536 \
-	-sALLOW_MEMORY_GROWTH=1 -sMEMORY_GROWTH_LINEAR_STEP=65536 -sGROWABLE_ARRAYBUFFERS=1 \
-	-sFILESYSTEM=0 \
+	-sALLOW_MEMORY_GROWTH=1 -sMEMORY_GROWTH_LINEAR_STEP=65536 \
+	-sFILESYSTEM=0 -sEXPORTED_FUNCTIONS=_malloc,_free -sEXPORTED_RUNTIME_METHODS=HEAPU8 \
 	-o graphviz.js
 
 perl -0777 -pi -e '
