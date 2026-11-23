@@ -1,6 +1,5 @@
 "use strict";
 const graphvizPromise = import("./graphviz.js").then(module => module.default());
-const stringsPromise = import("./wasm-strings.js").then(module => module.default);
 const zipPromise = import("https://luiscastro193.github.io/zip-string/zip-string.js");
 const inputElement = document.getElementById('inputElement');
 const graphSection = document.getElementById('graphSection');
@@ -88,10 +87,9 @@ function notationToLinks(graph) {
 }
 
 async function svg(input, inline = false) {
-	const [module, WasmStrings] = await Promise.all([graphviz, stringsPromise]);
-	const strings = new WasmStrings(module);
-	const result = strings.take(module._render(strings.write(gvString(notationToLinks(input))), inline));
-	if (!result) throw new Error(strings.read(module._error()));
+	const module = await graphviz;
+	const result = module.take(module._render(module.write(gvString(notationToLinks(input))), inline));
+	if (!result) throw new Error(module.read(module._error()));
 	return result;
 }
 

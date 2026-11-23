@@ -1,28 +1,20 @@
-"use strict";
 const encoder = new TextEncoder;
 const decoder = new TextDecoder;
 
-export default class WasmStrings {
-	constructor(module) {
-		this.module = module;
-	}
+Module['write'] = text => {
+	const source = encoder.encode(text + '\0');
+	const pointer = _malloc(source.length);
+	HEAPU8.set(source, pointer);
+	return pointer;
+};
 
-	write(text) {
-		const source = encoder.encode(text + '\0');
-		const pointer = this.module._malloc(source.length);
-		this.module.HEAPU8.set(source, pointer);
-		return pointer;
-	}
+Module['read'] = pointer => {
+	if (!pointer) return null;
+	return decoder.decode(HEAPU8.subarray(pointer, HEAPU8.indexOf(0, pointer)));
+};
 
-	read(pointer) {
-		if (!pointer) return null;
-		const bytes = this.module.HEAPU8;
-		return decoder.decode(bytes.subarray(pointer, bytes.indexOf(0, pointer)));
-	}
-
-	take(pointer) {
-		const text = this.read(pointer);
-		this.module._free(pointer);
-		return text;
-	}
-}
+Module['take'] = pointer => {
+	const text = Module['read'](pointer);
+	_free(pointer);
+	return text;
+};
