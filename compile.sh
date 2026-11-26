@@ -11,10 +11,10 @@ if [ ! -d $SOURCE ]; then
 	curl -fL https://gitlab.com/graphviz/graphviz/-/archive/$VERSION/graphviz-$VERSION.tar.gz | tar -xz -C vendor
 fi
 
-emcmake cmake -S $SOURCE -B $BUILD -G Ninja \
+GIT_CEILING_DIRECTORIES=$PWD/vendor emcmake cmake -S $SOURCE -B $BUILD -G Ninja \
 	-DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF -DGRAPHVIZ_CLI=OFF \
 	-DENABLE_LTDL=OFF -DWITH_EXPAT=OFF -DWITH_ZLIB=OFF -Dwith_ortho=OFF -DMATH_LIB=m \
-	-DCMAKE_C_FLAGS="$FEATURES"
+	-DCMAKE_C_FLAGS="$FEATURES -ffile-prefix-map=$PWD/$SOURCE/="
 
 cmake --build $BUILD --target gvplugin_core gvplugin_dot_layout
 
